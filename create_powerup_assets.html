@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Generate Powerup Assets</title>
+</head>
+<body>
+  <h1>Generating Powerup PNG Assets...</h1>
+  <div id="output"></div>
+  
+  <script>
+    // Create canvas for rendering
+    const canvas = document.createElement('canvas');
+    canvas.width = 32;
+    canvas.height = 32;
+    const ctx = canvas.getContext('2d');
+
+    function downloadImage(dataUrl, filename) {
+      const link = document.createElement('a');
+      link.href = dataUrl;
+      link.download = filename;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      
+      const div = document.getElementById('output');
+      div.innerHTML += `<p>✓ Downloaded ${filename}</p>`;
+    }
+
+    // Laser
+    ctx.clearRect(0, 0, 32, 32);
+    ctx.fillStyle = '#a855f7';
+    ctx.fillRect(4, 12, 24, 8);
+    ctx.fillStyle = '#e879f9';
+    ctx.beginPath();
+    ctx.arc(16, 16, 3, 0, Math.PI * 2);
+    ctx.fill();
+    downloadImage(canvas.toDataURL('image/png'), 'Laser.png');
+
+    // Bomb
+    ctx.clearRect(0, 0, 32, 32);
+    ctx.fillStyle = '#111';
+    ctx.beginPath();
+    ctx.arc(16, 16, 10, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillStyle = '#333';
+    ctx.beginPath();
+    ctx.arc(16, 16, 8, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillStyle = '#666';
+    ctx.fillRect(14, 4, 4, 4);
+    downloadImage(canvas.toDataURL('image/png'), 'Bomb.png');
+
+    // Shield
+    ctx.clearRect(0, 0, 32, 32);
+    ctx.fillStyle = '#38bdf8';
+    ctx.beginPath();
+    ctx.moveTo(16, 2);
+    ctx.lineTo(25, 7);
+    ctx.lineTo(25, 16);
+    ctx.quadraticCurveTo(25, 25, 16, 28);
+    ctx.quadraticCurveTo(7, 25, 7, 16);
+    ctx.lineTo(7, 7);
+    ctx.closePath();
+    ctx.fill();
+    downloadImage(canvas.toDataURL('image/png'), 'Shield.png');
+
+    // Blast
+    ctx.clearRect(0, 0, 32, 32);
+    ctx.fillStyle = '#fbbf24';
+    ctx.beginPath();
+    ctx.moveTo(16, 2);
+    ctx.lineTo(24, 12);
+    ctx.lineTo(20, 20);
+    ctx.lineTo(12, 20);
+    ctx.lineTo(8, 12);
+    ctx.closePath();
+    ctx.fill();
+    ctx.fillStyle = '#f59e0b';
+    ctx.beginPath();
+    ctx.arc(16, 16, 4, 0, Math.PI * 2);
+    ctx.fill();
+    downloadImage(canvas.toDataURL('image/png'), 'Blast.png');
+
+    // Life (heart)
+    ctx.clearRect(0, 0, 32, 32);
+    ctx.fillStyle = '#ef4444';
+    ctx.beginPath();
+    ctx.moveTo(16, 26);
+    ctx.lineTo(4, 14);
+    ctx.quadraticCurveTo(2, 12, 2, 9);
+    ctx.quadraticCurveTo(2, 4, 7, 4);
+    ctx.quadraticCurveTo(11, 4, 16, 8);
+    ctx.quadraticCurveTo(21, 4, 25, 4);
+    ctx.quadraticCurveTo(30, 4, 30, 9);
+    ctx.quadraticCurveTo(30, 12, 28, 14);
+    ctx.closePath();
+    ctx.fill();
+    downloadImage(canvas.toDataURL('image/png'), 'Life.png');
+
+    document.getElementById('output').innerHTML += '<p><strong>All assets generated! Move them to the assets/ folder.</strong></p>';
+  </script>
+</body>
+</html>

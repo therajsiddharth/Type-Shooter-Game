@@ -1,0 +1,96 @@
+/* =======================
+   GLOBAL RESET
+======================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  background: #020617;
+  height: 100%;
+  overflow: hidden;
+  font-family: 'Orbitron', system-ui, sans-serif;
+}
+
+/* =======================
+   GAME CONTAINER
+======================= */
+#game-container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  background:
+    radial-gradient(circle at center, #020617 0%, #000 70%),
+    linear-gradient(120deg, #020617 0%, #030712 100%);
+}
+
+/* =======================
+   CANVAS
+======================= */
+canvas#game {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* =======================
+   OVERLAY EFFECTS
+======================= */
+#overlay {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  background:
+    url("/assets/ui/scanlines.png"),
+    radial-gradient(circle at center, rgba(255,255,255,0.05), transparent 65%);
+  mix-blend-mode: overlay;
+  opacity: 0.25;
+}
+
+/* =======================
+   HUD (CANVAS TEXT STYLE GUIDE)
+======================= */
+/*
+Use these colors in canvas:
+Score / HUD: #e5e7eb
+Health: #22c55e
+Lives: #ef4444
+Level: #38bdf8
+Powerups: #a855f7
+Danger words: #f87171
+Active word: #facc15
+Boss: #ef4444
+*/
+
+/* =======================
+   GAME OVER STYLE
+======================= */
+.game-over {
+  color: #ef4444;
+  text-shadow:
+    0 0 10px rgba(239,68,68,0.8),
+    0 0 30px rgba(239,68,68,0.6);
+}
+
+/* =======================
+   PAUSE TEXT
+======================= */
+.paused {
+  color: #facc15;
+  text-shadow: 0 0 15px rgba(250,204,21,0.8);
+}
+
+/* =======================
+   OPTIONAL CRT EFFECT
+======================= */
+@keyframes flicker {
+  0% { opacity: 0.9 }
+  50% { opacity: 1 }
+  100% { opacity: 0.95 }
+}
+
+#game-container {
+  animation: flicker 4s infinite;
+}

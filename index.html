@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Typing Shooter</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Optional futuristic font -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ================= RESET ================= */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: radial-gradient(circle at top, #020617, #000000);
+      font-family: "Orbitron", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      color: #e5e7eb;
+      cursor: crosshair;
+    }
+
+    /* ================= GAME CONTAINER ================= */
+    #game-container {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+    }
+
+    /* ================= CANVAS ================= */
+    canvas#game {
+      display: block;
+      width: 100%;
+      height: 100%;
+      box-shadow:
+        0 0 20px rgba(34, 197, 94, 0.15),
+        inset 0 0 40px rgba(15, 23, 42, 0.85);
+      image-rendering: pixelated;
+    }
+
+    /* ================= CRT SCANLINES ================= */
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background: repeating-linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0.025),
+        rgba(255, 255, 255, 0.025) 1px,
+        transparent 1px,
+        transparent 3px
+      );
+      mix-blend-mode: overlay;
+      opacity: 0.22;
+      z-index: 5;
+    }
+
+    /* ================= VIGNETTE ================= */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background: radial-gradient(
+        ellipse at center,
+        rgba(0, 0, 0, 0) 45%,
+        rgba(0, 0, 0, 0.75) 100%
+      );
+      z-index: 4;
+    }
+
+    /* ================= SUBTLE FLICKER ================= */
+    @keyframes flicker {
+      0% { opacity: 0.97; }
+      50% { opacity: 1; }
+      100% { opacity: 0.98; }
+    }
+
+    #game-container {
+      animation: flicker 5s infinite;
+    }
+
+    /* ================= NEXT LEVEL BUTTON ================= */
+    #nextLevelBtn {
+      position: fixed;
+      bottom: 60px;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 16px 48px;
+      font-size: 18px;
+      font-weight: bold;
+      font-family: "Orbitron", sans-serif;
+      background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+      border: 3px solid #86efac;
+      color: #000;
+      cursor: pointer;
+      border-radius: 8px;
+      box-shadow: 0 0 30px rgba(34, 197, 94, 0.6), inset 0 0 20px rgba(255, 255, 255, 0.2);
+      transition: all 0.3s ease;
+      z-index: 100;
+      display: none;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    #nextLevelBtn:hover:not(:disabled) {
+      transform: translateX(-50%) scale(1.05);
+      box-shadow: 0 0 50px rgba(34, 197, 94, 0.8), inset 0 0 30px rgba(255, 255, 255, 0.3);
+    }
+
+    #nextLevelBtn:active:not(:disabled) {
+      transform: translateX(-50%) scale(0.98);
+    }
+
+    #nextLevelBtn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="game-container">
+    <canvas id="game"></canvas>
+    <button id="nextLevelBtn">NEXT LEVEL</button>
+  </div>
+
+  <!-- Game Logic -->
+  <script src="game.js"></script>
+</body>
+</html>
